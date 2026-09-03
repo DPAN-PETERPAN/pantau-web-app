@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPAN2 Progress — Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#0A1E33;
+    --navy-900:#0F2A47;
+    --navy-800:#173a5e;
+    --navy-700:#22537f;
+    --navy-100:#E6ECF2;
+    --paper:#F4F6F8;
+    --paper-card:#FFFFFF;
+    --line:#DCE2E8;
+    --ink:#132236;
+    --ink-soft:#4E5D6C;
+    --ink-faint:#8A96A3;
+    --gold:#B8863B;
+    --gold-soft:#EFE1C7;
+    --green:#1F7A4C;
+    --green-soft:#E4F2E9;
+    --amber:#B4790E;
+    --amber-soft:#FBEFDA;
+    --red:#B23A2E;
+    --red-soft:#F8E7E4;
+    --teal:#1B7A73;
+    --teal-soft:#E1F1EF;
+    --gray:#6B7684;
+    --gray-soft:#EAEDF0;
+    --blue:#2D5A8C;
+    --blue-soft:#E4ECF5;
+    --radius-s:6px;
+    --radius-m:10px;
+    --shadow-card: 0 1px 2px rgba(15,42,71,0.06), 0 1px 0 rgba(15,42,71,0.04);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'IBM Plex Sans', sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    font-size:14px;
+    line-height:1.5;
+  }
+  h1,h2,h3,.serif{ font-family:'Newsreader', serif; }
+  button{ font-family:inherit; cursor:pointer; }
+  .app{ display:flex; min-height:100vh; }
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{
+    width:216px; flex:none;
+    background:var(--navy-950);
+    color:#CBD9E6;
+    display:flex; flex-direction:column;
+    padding:20px 14px 16px;
+    position:sticky; top:0; height:100vh;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; padding:2px 6px 18px; border-bottom:1px solid rgba(255,255,255,0.09); margin-bottom:16px;}
+  .brand-mark{
+    width:34px; height:34px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #2a5482, var(--navy-900));
+    border:1.5px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Newsreader',serif; font-weight:600; color:var(--gold); font-size:15px;
+    flex:none;
+  }
+  .brand-text .l1{ font-family:'Newsreader',serif; font-size:14.5px; color:#fff; font-weight:600; letter-spacing:.2px;}
+  .brand-text .l2{ font-size:10.5px; color:#8FA4BA; margin-top:1px;}
+
+  .nav-group-label{ font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:#5E7994; margin:14px 10px 6px; }
+  .nav{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;}
+  .nav button{
+    all:unset; display:flex; align-items:center; gap:10px;
+    padding:8px 10px; border-radius:7px; font-size:13px; color:#B9CADB;
+    cursor:pointer;
+  }
+  .nav button svg{ flex:none; opacity:.85; }
+  .nav button:hover{ background:rgba(255,255,255,0.06); color:#fff; }
+  .nav button.active{ background:rgba(184,134,59,0.16); color:#fff; }
+  .nav button.active .dot{ background:var(--gold); }
+  .nav .dot{ width:5px; height:5px; border-radius:50%; background:transparent; margin-left:auto; }
+
+  .sidebar-footer{ margin-top:auto; padding-top:14px; border-top:1px solid rgba(255,255,255,0.09); }
+  .role-switch{
+    display:flex; background:rgba(255,255,255,0.06); border-radius:8px; padding:3px; gap:3px; margin-bottom:10px;
+  }
+  .role-switch button{
+    all:unset; flex:1; text-align:center; font-size:11.5px; padding:6px 4px; border-radius:6px; color:#9FB3C7; cursor:pointer;
+  }
+  .role-switch button.active{ background:var(--paper); color:var(--navy-950); font-weight:600; }
+  .tech-note-btn{
+    all:unset; display:block; width:100%; font-size:11.5px; color:#7B93AC; padding:6px 8px; border-radius:6px; cursor:pointer;
+  }
+  .tech-note-btn:hover{ background:rgba(255,255,255,0.06); color:#cfe0f0; }
+
+  /* ---------- MAIN ---------- */
+  .main{ flex:1; min-width:0; display:flex; flex-direction:column; }
+  .topbar{
+    background:var(--paper-card); border-bottom:1px solid var(--line);
+    padding:14px 28px; display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    position:sticky; top:0; z-index:5;
+  }
+  .topbar h1{ font-size:19px; margin:0; font-weight:600; letter-spacing:.1px; }
+  .topbar .sub{ color:var(--ink-faint); font-size:12.5px; margin-top:2px; }
+  .topbar-right{ margin-left:auto; display:flex; align-items:center; gap:10px; }
+  .select{
+    border:1px solid var(--line); background:#fff; border-radius:7px; padding:7px 10px;
+    font-size:12.5px; color:var(--ink); display:flex; align-items:center; gap:6px;
+  }
+  select.plain{ border:none; background:transparent; font-family:inherit; font-size:12.5px; color:var(--ink); font-weight:600; }
+  .avatar{ width:32px; height:32px; border-radius:50%; background:var(--navy-800); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; font-family:'Newsreader',serif;}
+
+  .content{ padding:22px 28px 60px; }
+
+  /* ---------- shared bits ---------- */
+  .badge{ display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:100px; white-space:nowrap; }
+  .b-green{ background:var(--green-soft); color:var(--green); }
+  .b-amber{ background:var(--amber-soft); color:var(--amber); }
+  .b-red{ background:var(--red-soft); color:var(--red); }
+  .b-gray{ background:var(--gray-soft); color:var(--gray); }
+  .b-teal{ background:var(--teal-soft); color:var(--teal); }
+  .b-blue{ background:var(--blue-soft); color:var(--blue); }
+  .b-gold{ background:var(--gold-soft); color:#8C5F1E; }
+
+  .cat-chip{ width:22px; height:22px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff; flex:none; }
+  .cat-A{ background:var(--navy-800); }
+  .cat-B{ background:#5C3B87; }
+  .cat-C{ background:#8C5F1E; }
+  .cat-D{ background:#3C6E71; }
+
+  .card{ background:var(--paper-card); border:1px solid var(--line); border-radius:var(--radius-m); box-shadow:var(--shadow-card); }
+
+  /* ============ TEAM INPUT SCREEN ============ */
+  .team-grid{ display:grid; grid-template-columns: 1.55fr 1fr; gap:18px; align-items:start; }
+  @media (max-width:1080px){ .team-grid{ grid-template-columns:1fr; } }
+
+  .panel{ padding:18px 20px 20px; margin-bottom:18px; }
+  .panel-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+  .panel-title{ font-size:15px; font-weight:600; }
+  .panel-desc{ font-size:12px; color:var(--ink-faint); margin:2px 0 14px; }
+
+  .status-picker{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+  .status-opt{
+    border:1px solid var(--line); background:#fff; border-radius:8px; padding:7px 11px; font-size:12px; font-weight:600;
+    display:flex; align-items:center; gap:6px; color:var(--ink-soft);
+  }
+  .status-opt .sw{ width:8px; height:8px; border-radius:50%; }
+  .status-opt.sel{ border-color:currentColor; }
+  .status-opt.sel.st-ontrack{ background:var(--green-soft); color:var(--green); }
+  .status-opt.sel.st-behind{ background:var(--red-soft); color:var(--red); }
+  .status-opt.sel.st-alert{ background:var(--amber-soft); color:var(--amber); }
+  .status-opt.sel.st-done{ background:var(--teal-soft); color:var(--teal); }
+
+  .field-label{ font-size:11.5px; font-weight:600; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; margin:0 0 8px; display:flex; align-items:center; gap:6px;}
+  .field-label .req{ color:var(--red); font-weight:400; text-transform:none; letter-spacing:0;}
+
+  .editor{ border:1px solid var(--line); border-radius:var(--radius-s); overflow:hidden; margin-bottom:16px; }
+  .editor-toolbar{ display:flex; gap:2px; padding:6px; border-bottom:1px solid var(--line); background:#FAFBFC; }
+  .editor-toolbar button{ all:unset; width:26px; height:26px; display:flex; align-items:center; justify-content:center; border-radius:5px; color:var(--ink-soft); font-size:12.5px;}
+  .editor-toolbar button:hover{ background:var(--gray-soft); color:var(--ink); }
+  .bullet-list{ list-style:none; margin:0; padding:12px 14px 6px; display:flex; flex-direction:column; gap:9px; }
+  .bullet-list li{ display:flex; align-items:flex-start; gap:8px; }
+  .bullet-list .dash{ color:var(--gold); font-weight:700; margin-top:1px; }
+  .bullet-list [contenteditable]{ outline:none; flex:1; min-height:18px; font-size:13px; }
+  .bullet-list [contenteditable]:empty:before{ content:attr(data-ph); color:var(--ink-faint); }
+  .add-bullet{ all:unset; margin:2px 14px 12px; font-size:12px; color:var(--navy-700); font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:5px; }
+  .add-bullet:hover{ text-decoration:underline; }
+
+  .attach-row{ display:flex; align-items:center; gap:10px; border:1px dashed var(--line); border-radius:var(--radius-s); padding:10px 12px; margin-bottom:6px; }
+  .attach-icon{ width:30px; height:30px; border-radius:6px; background:var(--blue-soft); color:var(--blue); display:flex; align-items:center; justify-content:center; flex:none;}
+  .attach-meta{ font-size:12px; }
+  .attach-meta .name{ font-weight:600; color:var(--ink); }
+  .attach-meta .size{ color:var(--ink-faint); }
+  .attach-remove{ all:unset; margin-left:auto; color:var(--ink-faint); font-size:16px; cursor:pointer; padding:2px 6px;}
+  .attach-remove:hover{ color:var(--red); }
+  .attach-add{ all:unset; font-size:12px; color:var(--navy-700); font-weight:600; display:inline-flex; align-items:center; gap:6px; padding:4px 0; }
+
+  .panel-footer{ display:flex; align-items:center; justify-content:space-between; margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
+  .save-btn{ all:unset; background:var(--navy-900); color:#fff; padding:9px 18px; border-radius:8px; font-size:13px; font-weight:600; display:inline-flex; align-items:center; gap:8px; }
+  .save-btn:hover{ background:var(--navy-800); }
+  .ghost-btn{ all:unset; color:var(--ink-soft); padding:9px 14px; border-radius:8px; font-size:13px; font-weight:600; border:1px solid var(--line); }
+  .ghost-btn:hover{ background:var(--paper); }
+  .last-saved{ font-size:11.5px; color:var(--ink-faint); }
+
+  /* checklist panel */
+  .progress-head{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .progress-num{ font-family:'Newsreader',serif; font-size:26px; font-weight:600; color:var(--navy-900); }
+  .progress-bar-track{ flex:1; height:8px; background:var(--gray-soft); border-radius:100px; overflow:hidden; }
+  .progress-bar-fill{ height:100%; background:linear-gradient(90deg, var(--gold), #D9A857); border-radius:100px; }
+
+  .phase-block{ margin-bottom:4px; }
+  .phase-title{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); margin:14px 0 6px; }
+  .phase-title:first-child{ margin-top:0; }
+  .deliv-row{ display:flex; align-items:flex-start; gap:10px; padding:9px 4px; border-radius:7px; cursor:pointer; }
+  .deliv-row:hover{ background:var(--paper); }
+  .deliv-check{
+    width:18px; height:18px; border-radius:5px; border:1.6px solid var(--line); flex:none; margin-top:1px;
+    display:flex; align-items:center; justify-content:center; font-size:11px; color:#fff;
+  }
+  .deliv-check.done{ background:var(--green); border-color:var(--green); }
+  .deliv-main{ flex:1; min-width:0; }
+  .deliv-name{ font-size:12.8px; font-weight:600; }
+  .deliv-date{ font-size:11px; color:var(--ink-faint); margin-top:1px; }
+  .deliv-detail{ font-size:11px; color:var(--ink-soft); margin-top:3px; display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+  .deliv-detail .sep{ color:var(--line); }
+  .deliv-detail .dic{ opacity:.7; }
+  .deliv-status{ flex:none; }
+
+  .info-callout{ display:flex; gap:9px; background:var(--gold-soft); border-radius:8px; padding:10px 12px; font-size:12px; color:#7A5116; margin-top:14px; }
+
+  /* ============ LOG (weekly update history) ============ */
+  .log-entry{ border-top:1px solid var(--line); padding:14px 0; }
+  .log-entry:first-child{ border-top:none; }
+  .log-head{ display:flex; align-items:center; gap:9px; margin-bottom:9px; flex-wrap:wrap; }
+  .log-date{ font-size:12.5px; font-weight:600; color:var(--ink); }
+  .log-author{ font-size:11.5px; color:var(--ink-faint); }
+  .log-edited{ font-size:10.8px; color:var(--gold); background:var(--gold-soft); padding:1px 7px; border-radius:100px; font-weight:600; }
+  .log-edit-btn{ all:unset; margin-left:auto; font-size:11.5px; color:var(--navy-700); font-weight:600; cursor:pointer; padding:3px 8px; border-radius:6px; }
+  .log-edit-btn:hover{ background:var(--paper); }
+  .log-sub-label{ font-size:10.8px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); margin:9px 0 4px; }
+  .log-sub-label:first-of-type{ margin-top:0; }
+  .log-entry ul{ margin:0; padding-left:17px; }
+  .log-entry li{ font-size:12.8px; margin-bottom:4px; }
+  .log-entry .attach-row{ margin-top:8px; margin-bottom:0; padding:7px 10px; }
+  .compose-toggle-wrap{ margin-bottom:14px; }
+  .empty-log{ font-size:12px; color:var(--ink-faint); font-style:italic; padding:6px 0; }
+
+  /* ============ SUPERVISOR SCREEN ============ */
+  .kpi-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
+  @media (max-width:900px){ .kpi-row{ grid-template-columns:repeat(2,1fr); } }
+  .kpi{ padding:16px 18px; }
+  .kpi .label{ font-size:11.5px; color:var(--ink-faint); font-weight:600; text-transform:uppercase; letter-spacing:.05em; }
+  .kpi .value{ font-family:'Newsreader',serif; font-size:28px; font-weight:600; margin-top:6px; color:var(--navy-900); }
+  .kpi .foot{ font-size:11.5px; color:var(--ink-faint); margin-top:3px; }
+  .kpi.warn .value{ color:var(--red); }
+
+  .pending-banner{
+    display:flex; align-items:flex-start; gap:12px; background:var(--red-soft); border:1px solid #EDC9C2;
+    border-radius:var(--radius-m); padding:13px 16px; margin-bottom:20px;
+  }
+  .pending-banner .ic{ color:var(--red); flex:none; margin-top:1px; }
+  .pending-banner .t1{ font-weight:600; font-size:13px; color:#7A2A20; }
+  .pending-banner .t2{ font-size:12.3px; color:#8A4437; margin-top:2px; }
+  .pending-chip{ display:inline-flex; align-items:center; gap:5px; background:#fff; border:1px solid #EDC9C2; color:#8A2E22; font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:100px; margin:6px 6px 0 0; }
+
+  .filter-row{ display:flex; align-items:center; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+  .chip-filter{ border:1px solid var(--line); background:#fff; border-radius:100px; padding:6px 13px; font-size:12px; font-weight:600; color:var(--ink-soft); }
+  .chip-filter.sel{ background:var(--navy-900); border-color:var(--navy-900); color:#fff; }
+
+  table.proj-table{ width:100%; border-collapse:collapse; }
+  table.proj-table thead th{
+    text-align:left; font-size:10.8px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint);
+    font-weight:700; padding:0 12px 10px; border-bottom:1px solid var(--line);
+  }
+  table.proj-table tbody td{ padding:12px; border-bottom:1px solid var(--line); vertical-align:middle; }
+  table.proj-table tbody tr{ cursor:pointer; }
+  table.proj-table tbody tr:hover{ background:var(--paper); }
+  table.proj-table tbody tr:last-child td{ border-bottom:none; }
+  .proj-name-cell{ display:flex; align-items:center; gap:10px; }
+  .proj-name{ font-weight:600; font-size:13px; }
+  .proj-team{ font-size:11.5px; color:var(--ink-faint); }
+  .mini-bar-track{ width:74px; height:6px; background:var(--gray-soft); border-radius:100px; overflow:hidden; display:inline-block; vertical-align:middle; margin-right:8px;}
+  .mini-bar-fill{ height:100%; background:var(--navy-800); border-radius:100px; }
+  .updated-cell{ font-size:12px; }
+  .updated-cell.stale{ color:var(--red); font-weight:600; }
+  .updated-cell.fresh{ color:var(--ink-faint); }
+
+  /* ============ DRAWER ============ */
+  .overlay{ position:fixed; inset:0; background:rgba(10,20,35,0.42); z-index:40; display:none; }
+  .overlay.open{ display:block; }
+  .drawer{
+    position:fixed; top:0; right:-560px; width:540px; max-width:92vw; height:100vh; background:var(--paper-card);
+    z-index:41; box-shadow:-8px 0 30px rgba(10,20,35,0.18); transition:right .28s ease; overflow-y:auto;
+  }
+  .drawer.open{ right:0; }
+  .drawer-head{ padding:20px 22px 16px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--paper-card); z-index:2; }
+  .drawer-close{ all:unset; float:right; cursor:pointer; color:var(--ink-faint); font-size:20px; line-height:1; padding:4px;}
+  .drawer-close:hover{ color:var(--ink); }
+  .drawer-cat{ display:flex; align-items:center; gap:8px; margin-bottom:8px;}
+  .drawer-title{ font-size:19px; font-weight:600; font-family:'Newsreader',serif; margin:0 0 4px; }
+  .drawer-sub{ font-size:12px; color:var(--ink-faint); }
+  .drawer-body{ padding:18px 22px 32px; }
+  .drawer-section-title{ font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); margin:22px 0 10px; }
+  .drawer-section-title:first-child{ margin-top:0; }
+  .timeline-bar-wrap{ margin-bottom:10px; }
+  .timeline-labels{ display:flex; justify-content:space-between; font-size:11px; color:var(--ink-faint); margin-bottom:5px;}
+  .timeline-track{ height:10px; background:var(--gray-soft); border-radius:100px; position:relative; overflow:hidden; }
+  .timeline-plan{ position:absolute; top:0; bottom:0; background:var(--blue-soft); }
+  .timeline-actual{ position:absolute; top:0; bottom:0; background:var(--navy-800); border-radius:100px; }
+  .timeline-legend{ display:flex; gap:14px; font-size:11px; color:var(--ink-faint); margin-top:6px; }
+  .timeline-legend span{ display:inline-flex; align-items:center; gap:5px; }
+  .timeline-legend i{ width:9px; height:9px; border-radius:2px; display:inline-block; }
+
+  .drawer-checklist .deliv-row{ padding:8px 0; cursor:pointer; }
+
+  /* ---------- generic modal ---------- */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(10,20,35,0.5); z-index:50; display:none; align-items:center; justify-content:center; padding:24px;}
+  .modal-overlay.open{ display:flex; }
+  .modal{ background:#fff; border-radius:12px; max-width:560px; width:100%; max-height:88vh; overflow-y:auto; padding:26px 28px; }
+  .modal.narrow{ max-width:440px; }
+  .modal h2{ font-size:18px; margin:0 0 4px; }
+  .modal .modal-sub{ font-size:12.5px; color:var(--ink-faint); margin-bottom:16px; }
+  .modal-close{ float:right; all:unset; cursor:pointer; color:var(--ink-faint); font-size:20px; }
+  .tech-item{ margin-bottom:14px; }
+  .tech-item .h{ font-size:13px; font-weight:600; display:flex; align-items:center; gap:7px; margin-bottom:4px;}
+  .tech-item .h .n{ width:20px; height:20px; border-radius:5px; background:var(--navy-900); color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center; font-weight:700; }
+  .tech-item p{ font-size:12.5px; color:var(--ink-soft); margin:0; padding-left:27px; }
+  code{ background:var(--gray-soft); padding:1px 5px; border-radius:4px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; }
+
+  /* checklist detail form */
+  .form-field{ margin-bottom:14px; }
+  .form-field label{ display:block; font-size:11.5px; font-weight:600; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px; }
+  .form-field label .opt{ text-transform:none; font-weight:400; color:var(--ink-faint); letter-spacing:0; }
+  .form-input, .form-textarea{
+    width:100%; border:1px solid var(--line); border-radius:7px; padding:9px 11px; font-family:inherit; font-size:13px; color:var(--ink); background:#fff;
+  }
+  .form-input:focus, .form-textarea:focus{ outline:none; border-color:var(--navy-700); box-shadow:0 0 0 3px rgba(34,83,127,0.12); }
+  .form-textarea{ min-height:64px; resize:vertical; }
+  .form-row2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .modal-footer{ display:flex; align-items:center; gap:8px; margin-top:6px; padding-top:16px; border-top:1px solid var(--line); }
+  .btn-danger-text{ all:unset; color:var(--red); font-size:12.5px; font-weight:600; cursor:pointer; padding:9px 4px; }
+  .modal-title-row{ display:flex; align-items:center; gap:9px; margin-bottom:2px; }
+
+  .empty-note{ font-size:12px; color:var(--ink-faint); font-style:italic; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">BI</div>
+      <div class="brand-text">
+        <div class="l1">DPAN Progress</div>
+        <div class="l2">GPAN2 · POPN2 &amp; KPAN2</div>
+      </div>
+    </div>
+
+    <div class="nav-group-label">Menu</div>
+    <ul class="nav">
+      <li><button data-go="team" id="nav-team"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h7"/></svg>Update Mingguan<span class="dot"></span></button></li>
+      <li><button data-go="dash" id="nav-dash"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard Supervisor<span class="dot"></span></button></li>
+      <li><button disabled style="opacity:.4;cursor:default;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>Timeline (Gantt)</button></li>
+      <li><button disabled style="opacity:.4;cursor:default;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>Dokumen</button></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="role-switch">
+        <button id="role-team" class="active">Tim Proyek</button>
+        <button id="role-sup">Supervisor</button>
+      </div>
+      <button class="tech-note-btn" id="open-tech">⚙ Catatan implementasi (Power Apps)</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar" id="topbar"></div>
+    <div class="content" id="content"></div>
+  </main>
+</div>
+
+<!-- DRAWER -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer"></aside>
+
+<!-- CHECKLIST DETAIL MODAL -->
+<div class="modal-overlay" id="checklist-modal">
+  <div class="modal narrow" id="checklist-modal-inner"></div>
+</div>
+
+<!-- TECH NOTE MODAL -->
+<div class="modal-overlay" id="tech-modal">
+  <div class="modal">
+    <button class="modal-close" id="close-tech">×</button>
+    <h2>Pemetaan ke Power Apps + Excel</h2>
+    <div class="modal-sub">Struktur di mockup ini dibuat agar 1:1 dipetakan ke implementasi sebenarnya.</div>
+
+    <div class="tech-item">
+      <div class="h"><span class="n">1</span>Tiga tabel sumber data (Excel Online / SharePoint list)</div>
+      <p><code>tbl_checklist_deliverable</code> — perluasan sheet <code>manual_fact_rtpp.xlsx</code> yang sudah ada, ditambah kolom <code>doc_date, doc_number, contract_value, vendor, notes</code> yang baru diisi saat item ditandai selesai. <code>tbl_weekly_log</code> — tabel baru: log_id, project_id, periode, submitted_at, submitted_by, status_overall, progres_bullets, rtl_bullets, lampiran_url, edited_at. Satu baris per entri, bukan overwrite, supaya riwayat tetap ada.</p>
+    </div>
+    <div class="tech-item">
+      <div class="h"><span class="n">2</span>Form detail checklist = popup Form kecil</div>
+      <p>Saat toggle checklist ditekan, buka <code>Form</code> mode New/Edit terhubung ke <code>tbl_checklist_deliverable</code>. <code>DataCardValue</code> untuk vendor &amp; nilai kontrak dibuat <code>Visible: If(Deliverable in ["KAK","SPPP"], true, false)</code> supaya field itu hanya muncul saat relevan.</p>
+    </div>
+    <div class="tech-item">
+      <div class="h"><span class="n">3</span>Log mingguan = Gallery + Patch (bukan overwrite)</div>
+      <p>Tombol "Simpan sebagai Update Baru" memanggil <code>Patch(tbl_weekly_log, Defaults(tbl_weekly_log), {...})</code> — selalu membuat baris baru. Tombol edit pada entri lama memanggil <code>Patch(tbl_weekly_log, LookUp(...), {edited_at: Now(), ...})</code> pada baris yang sama, supaya histori periode sebelumnya tidak hilang.</p>
+    </div>
+    <div class="tech-item">
+      <div class="h"><span class="n">4</span>Dashboard Supervisor = read-only view</div>
+      <p><code>Gallery</code> proyek dengan kolom terhitung "Belum update minggu ini" = periode berjalan tidak ada di <code>tbl_weekly_log</code>. Klik baris membuka panel detail yang sama, tapi field checklist &amp; log dikunci (<code>DisplayMode: View</code>).</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===================== SAMPLE DATA ===================== */
+const TEAMS = [
+  {id:'t1', name:'Tim Fasilitas Akomodasi'},
+  {id:'t2', name:'Tim KPwBI Jambi'},
+  {id:'t3', name:'Tim KPwBI DIY'},
+  {id:'t4', name:'Tim Modern Office & Perkuatan Struktur'},
+  {id:'t5', name:'Tim KOPERBI Thamrin & Penugasan'},
+];
+
+const CURRENT_PERIOD = 'Minggu 4 · Agustus 2026';
+
+function ck(name, due, done, status, extra){
+  return Object.assign({name, due, done, status, docDate:'', docNumber:'', vendor:'', contractValue:'', notes:''}, extra||{});
+}
+function logEntry(period, date, time, status, progres, rtl, attach, editedAt){
+  return {id:'log-'+Math.random().toString(36).slice(2,9), period, date, time, status, progres, rtl:rtl||[], attach:attach||null, editedAt:editedAt||null};
+}
+
+const PROJECTS = [
+  {
+    id:'p1', team:'t1', cat:'A', name:'Fasilitas Akomodasi KOPERBI SINERGI',
+    target:'BAST-1', status:'ontrack', pct:71,
+    plan:34.0, actual:35.9,
+    log:[
+      logEntry(CURRENT_PERIOD, '29 Agu 2026', '08:14', 'ontrack',
+        ['Pekerjaan struktur utama Tower B, C, dan Sports Hall (Tower D) sudah selesai.',
+         'Pekerjaan arsitektur &amp; interior unit kamar berjalan, progres sekitar 76%.',
+         'Pekerjaan landscape, infrastruktur, dan GWT Siram Taman sedang berjalan.',
+         'Adendum I telah diterbitkan 21 Juli 2026; proses penatausahaan di ERP berjalan.'],
+        ['Pemenuhan kelengkapan dokumen untuk persetujuan Adendum Tahap 2 (minggu ini).',
+         'Persiapan pengadaan kerja tambah untuk Perlengkapan Akomodasi Pegawai di KOPERBI SINERGI.'],
+        {name:'Progress_Minggu_4_Agustus_2026.pdf', size:'1.32 MB'}
+      ),
+      logEntry('Minggu 3 · Agustus 2026', '22 Agu 2026', '09:02', 'ontrack',
+        ['Konsinyering 11–13 Mei lanjut untuk percepatan 237 RFI, 110 approval material, 188 shop drawing.',
+         'Asesmen BGH bersama Dinas PUPR Karawang selesai 22–25 Juli 2026, hasil Peringkat Utama (138 poin).'],
+        ['Proses penyiapan dokumen BGH Pelaksanaan.'], null, null
+      ),
+      logEntry('Minggu 2 · Agustus 2026', '15 Agu 2026', '10:20', 'ontrack',
+        ['Adendum I diproses, 9 dari 10 LLI telah di-approve dan terbit PO.'],
+        ['Approval Panel Tegangan Rendah ditargetkan Mei 2026.'], null, '23 Agu 2026, 14:10'
+      ),
+    ],
+    checklist:[
+      {phase:'Pra Pembangunan &amp; Pra Pengadaan', items:[
+        ck('RBT','Sudah selesai', true, 'ontrack', {docDate:'2025-11-20', docNumber:'28/210/DPAN-GPAN2/Srt/B'}),
+        ck('RPP','Sudah selesai', true, 'ontrack', {docDate:'2025-11-25', docNumber:'28/215/DPAN-GPAN2/Srt/B'}),
+        ck('RBTek','Sudah selesai', true, 'ontrack', {docDate:'2025-12-01', docNumber:'28/220/DPAN-GPAN2/Srt/B'}),
+      ]},
+      {phase:'Implementasi', items:[
+        ck('Kick Off','10 Des 2025', true, 'ontrack', {docDate:'2025-12-10', docNumber:'BAST Tapak', vendor:'PT Pembangunan Perumahan (Persero) Tbk'}),
+        ck('BAST 1','30 Apr 2026', true, 'ontrack', {docDate:'2026-04-30', vendor:'PT Pembangunan Perumahan (Persero) Tbk', contractValue:'Termin I 5% Pekerjaan Lumsum'}),
+        ck('BAST 2','Belum dijadwalkan', false, 'manual'),
+      ]},
+    ],
+  },
+  {
+    id:'p2', team:'t2', cat:'A', name:'KPwBI Jambi (GKS)',
+    target:'Go-Live Operasional', status:'done', pct:100,
+    plan:100, actual:100,
+    log:[
+      logEntry('Minggu 3 · Agustus 2026', '25 Agu 2026', '11:05', 'done',
+        ['GKS telah Go-Live dan beroperasional sejak 9 Maret 2026.',
+         'Penyempurnaan keramik area lobby ditargetkan selesai M1 September 2026.',
+         'Pengawasan pemeliharaan berjalan untuk persiapan BAST 2 sekaligus BAST Operasional.'],
+        ['Penatausahaan aset GKS — proses mapping berjalan.'], null, null),
+    ],
+    checklist:[
+      {phase:'Implementasi', items:[
+        ck('BAST 1','27 Feb 2026', true, 'ontrack', {docDate:'2026-02-27'}),
+        ck('Go-Live','9 Mar 2026', true, 'ontrack', {docDate:'2026-03-09'}),
+        ck('BAST 2 / Operasional','Menunggu DLAF', false, 'manual'),
+      ]}
+    ],
+  },
+  {
+    id:'p3', team:'t2', cat:'A', name:'KPwBI Jambi (GKU)',
+    target:'Progres Pelaksanaan 50%', status:'ontrack', pct:52,
+    plan:24.1, actual:25.8,
+    log:[
+      logEntry(CURRENT_PERIOD, '29 Agu 2026', '09:40', 'ontrack',
+        ['Pemancangan seluruh gedung (Utama, Penunjang, Power House, Masjid) telah selesai.',
+         'Pengecoran Lt.2 dan Lt.3 Gedung Utama berjalan, bersamaan pekerjaan MEP.',
+         'Approval material interior direncanakan M1 September 2026.'],
+        ['Administrasi addendum tiang pancang &amp; kanopi belakang Gedung Utama.',
+         'Monitoring produksi long lead item.',
+         'Menunggu penerbitan izin AMDAL di PTSP.'],
+        {name:'Update_GKU_Jambi_W4.pdf', size:'980 KB'}),
+      logEntry('Minggu 3 · Agustus 2026', '21 Agu 2026', '16:12', 'ontrack',
+        ['Pemancangan tiang untuk Gedung Penunjang &amp; Masjid selesai.'],
+        ['Lanjut pemancangan Gedung Utama &amp; Power House.'], null, null),
+    ],
+    checklist:[
+      {phase:'Pra Pembangunan &amp; Pra Pengadaan', items:[
+        ck('PBG','25 Jun 2026', true, 'ontrack', {docDate:'2026-06-25'}),
+      ]},
+      {phase:'Implementasi', items:[
+        ck('Kick Off','22 Des 2025', true, 'ontrack', {docDate:'2025-12-22'}),
+        ck('BAST Tapak','22 Des 2025', true, 'ontrack', {docDate:'2025-12-22'}),
+      ]},
+    ],
+  },
+  {
+    id:'p4', team:'t3', cat:'B', name:'KPwBI DIY',
+    target:'SPPP Pelaksana Pekerjaan', status:'ontrack', pct:46,
+    plan:null, actual:null,
+    log:[
+      logEntry('Minggu 3 · Agustus 2026', '24 Agu 2026', '13:30', 'ontrack',
+        ['RPP GKU KPwBI DIY disetujui ADG 2 pada 14 Agustus 2026.',
+         'RBTek GKS KPwBI DIY disetujui 27 Agustus 2026; KAK Pelaksana disampaikan ke DMAP 28 Agustus 2026.',
+         'Proses perizinan dengan konsultan perizinan — tahap pengumpulan dokumen kelengkapan.'],
+        ['Kunjungan ke DIY terkait perizinan Renovasi GKU (M-2 September 2026).',
+         'Koordinasi pemutihan nilai ADP/CIP nominal Rp47,8 juta.'], null, null),
+    ],
+    checklist:[
+      {phase:'Pra Pembangunan &amp; Pra Pengadaan', items:[
+        ck('RPP GKU','14 Agu 2026', true, 'ontrack', {docDate:'2026-08-14', docNumber:'Persetujuan ADG 2'}),
+        ck('RBTek GKS','27 Agu 2026', true, 'ontrack', {docDate:'2026-08-27'}),
+      ]},
+      {phase:'Pengadaan', items:[
+        ck('KAK Pelaksana GKS','28 Agu 2026', true, 'ontrack', {docDate:'2026-08-28', docNumber:'Surat ke DMAP'}),
+        ck('Penunjukan Pelaksana','Target Des 2026', false, 'manual'),
+      ]}
+    ],
+  },
+  {
+    id:'p5', team:'t4', cat:'B', name:'Modern Office Tahap 2B &amp; 2C',
+    target:'SPPP Pelaksana Pekerjaan', status:'behind', pct:33,
+    plan:null, actual:null,
+    log:[
+      logEntry('Minggu 3 · Agustus 2026', '23 Agu 2026', '15:00', 'behind',
+        ['KAK telah disampaikan ke DMAP 18 Agustus 2026; target SPPP mundur ke M1 Desember 2026 (hasil RKP).',
+         'Proses perpindahan Satker Gd. C dan D dikoordinir KPAP sejak M3 Agustus 2026.'],
+        ['Koordinasi pengosongan lantai Gd. C &amp; D untuk perkuatan struktur Tahap 2.',
+         'Koordinasi dengan DMAP terkait pengadaan Pelaksana Fisik &amp; perabot pendukung.'], null, null),
+    ],
+    checklist:[
+      {phase:'Pengadaan', items:[
+        ck('SPPP Konsultan Perancang','24 Apr 2026', true, 'ontrack', {docDate:'2026-04-24', vendor:'Konsultan Perancang MO 2B/2C'}),
+        ck('SPPP Pelaksana','Target M1 Des 2026', false, 'behind'),
+      ]}
+    ],
+  },
+  {
+    id:'p6', team:'t4', cat:'B', name:'Perkuatan Struktur Tahap 2',
+    target:'BAST-1', status:'ontrack', pct:58,
+    plan:null, actual:null,
+    log:[
+      logEntry(CURRENT_PERIOD, '29 Agu 2026', '07:55', 'ontrack',
+        ['Perkuatan struktur Lt.3 IC selesai 3 Juli 2026.',
+         'Progres kumulatif: Chipping 100%, Pembesian 34%, Bekisting 30%, Grouting 30%, Perkuatan FRP 15%.',
+         'Adendum I Jangka Waktu &amp; Lingkup telah terbit 28 Juli 2026.'],
+        ['Monitoring harian perkuatan Gd. C lt.8,9 dan D lt.7,8 — target selesai 24 Sept 2026.',
+         'Monitoring pengosongan Gd. C lt.3,6,7 dan Gd. D lt.10.'],
+        {name:'Perkuatan_Struktur_W4.pdf', size:'1.1 MB'}),
+      logEntry('Minggu 3 · Agustus 2026', '22 Agu 2026', '17:40', 'ontrack',
+        ['Chipping mencapai 80%, pembesian mulai berjalan.'],
+        ['Percepatan grouting di area yang sudah chipping selesai.'], null, null),
+    ],
+    checklist:[
+      {phase:'Implementasi', items:[
+        ck('Kick Off','11 Mei 2026', true, 'ontrack', {docDate:'2026-05-11'}),
+        ck('BAST Tapak','12 Mei 2026', true, 'ontrack', {docDate:'2026-05-12'}),
+        ck('BAST 1','Target 24 Sep 2026', false, 'ontrack'),
+      ]}
+    ],
+  },
+  {
+    id:'p7', team:'t5', cat:'C', name:'KOPERBI THAMRIN — Renovasi R. Rapat Komite Lt.14 &amp; Area Kolaborasi Lt.4',
+    target:'BAST-1', status:'alert', pct:24,
+    plan:null, actual:null,
+    log:[
+      logEntry('Minggu 2 · Agustus 2026', '15 Agu 2026', '10:10', 'alert',
+        ['SPPP Pelaksana Pekerjaan terbit 3 Agustus 2026; Pre Construction Meeting &amp; BAST Tapak 4–7 Agustus 2026.',
+         'Pembongkaran lantai 14 dilakukan parsial, menunggu perpindahan satker DIDD–Payment ID (target M1 September 2026).'],
+        ['Proses pembayaran Uang Muka 30% Pelaksana Fisik, target M2 September 2026.',
+         'Percepatan Approval Material khusus long lead item.'], null, null),
+    ],
+    checklist:[
+      {phase:'Implementasi', items:[
+        ck('SPPP Pelaksana','3 Agu 2026', true, 'ontrack', {docDate:'2026-08-03'}),
+        ck('BAST Tapak','7 Agu 2026', true, 'ontrack', {docDate:'2026-08-07'}),
+        ck('BAST 1','Belum dijadwalkan', false, 'behind'),
+      ]}
+    ],
+  },
+  {
+    id:'p8', team:'t5', cat:'C', name:'KOPERBI THAMRIN — Cafetaria, Nursery &amp; Taman Cinta Keluarga',
+    target:'RBT 100%', status:'notstarted', pct:0,
+    plan:null, actual:null,
+    log:[],
+    checklist:[
+      {phase:'Pra Pembangunan &amp; Pra Pengadaan', items:[
+        ck('Pengadaan Konsultan Perancang','Berjalan di DMAP', false, 'notstarted'),
+      ]}
+    ],
+  },
+  {
+    id:'p9', team:'t5', cat:'D', name:'Penyusunan IN 2026 — Asesmen PUR',
+    target:'Target Tw-III 2026', status:'ontrack', pct:60,
+    plan:null, actual:null,
+    log:[
+      logEntry('Minggu 3 · Agustus 2026', '27 Agu 2026', '14:22', 'ontrack',
+        ['P2M UI sedang menyusun Laporan Issue Note.',
+         'Diusulkan perbandingan Gap Analysis untuk fungsi front office, middle office, dan back office pada Pengelolaan Uang Rupiah.'],
+        ['Pengambilan data kualitatif (wawancara) dengan satker terkait.'], null, null),
+    ],
+    checklist:[
+      {phase:'Penugasan', items:[
+        ck('Kick Off Meeting','3 Jun 2026', true, 'ontrack', {docDate:'2026-06-03', docNumber:'Pembelian Langsung', vendor:'P2M UI (Universitas Indonesia)'}),
+        ck('Laporan Issue Note','Target Tw-III 2026', false, 'ontrack'),
+      ]}
+    ],
+  },
+];
+
+const STATUS_META = {
+  ontrack:  {label:'On Track', cls:'b-green'},
+  behind:   {label:'Behind', cls:'b-red'},
+  alert:    {label:'Alert', cls:'b-amber'},
+  notstarted:{label:'Not Started', cls:'b-gray'},
+  done:     {label:'Done', cls:'b-teal'},
+  manual:   {label:'Manual', cls:'b-gray'},
+};
+const CAT_LABEL = {A:'Pembangunan', B:'Renovasi Besar', C:'Renovasi', D:'Penugasan'};
+
+/* ===================== STATE ===================== */
+let role = 'team';
+let currentScreen = 'team';
+let activeTeamId = 't1';
+let activeProjectId = 'p1';
+let catFilter = 'all';
+let editingLogEntryId = null;
+let composeOpen = false;
+let checklistModalCtx = null;
+let lastDrawerProjectId = null;
+
+/* ===================== HELPERS ===================== */
+function badge(status){
+  const m = STATUS_META[status] || STATUS_META.manual;
+  return `<span class="badge ${m.cls}"><span style="width:6px;height:6px;border-radius:50%;background:currentColor;"></span>${m.label}</span>`;
+}
+function catChip(cat){ return `<div class="cat-chip cat-${cat}" title="${CAT_LABEL[cat]}">${cat}</div>`; }
+function teamName(id){ return TEAMS.find(t=>t.id===id)?.name || id; }
+function project(id){ return PROJECTS.find(p=>p.id===id); }
+function esc(s){ return (s||'').toString().replace(/</g,'&lt;'); }
+
+/* ===================== TOPBAR ===================== */
+function renderTopbar(){
+  const el = document.getElementById('topbar');
+  if(currentScreen === 'team'){
+    el.innerHTML = `
+      <div>
+        <h1>Update Mingguan</h1>
+        <div class="sub">Isi progres &amp; checklist deliverable proyek Anda</div>
+      </div>
+      <div class="topbar-right">
+        <div class="select">Tim
+          <select class="plain" id="team-picker">
+            ${TEAMS.map(t=>`<option value="${t.id}" ${t.id===activeTeamId?'selected':''}>${t.name}</option>`).join('')}
+          </select>
+        </div>
+        <div class="select">📅 ${CURRENT_PERIOD}</div>
+        <div class="avatar">A</div>
+      </div>`;
+    document.getElementById('team-picker').onchange = (e)=>{
+      activeTeamId = e.target.value;
+      const first = PROJECTS.find(p=>p.team===activeTeamId);
+      if(first) activeProjectId = first.id;
+      composeOpen = false; editingLogEntryId = null;
+      renderContent();
+    };
+  } else {
+    el.innerHTML = `
+      <div>
+        <h1>Dashboard Supervisor</h1>
+        <div class="sub">Pantauan progres seluruh grup — GPAN2</div>
+      </div>
+      <div class="topbar-right">
+        <div class="select">📅 ${CURRENT_PERIOD}</div>
+        <div class="avatar" style="background:var(--gold);color:#3B2A0E;">S</div>
+      </div>`;
+  }
+}
+
+/* ===================== TEAM SCREEN ===================== */
+function teamProjectsForActiveTeam(){ return PROJECTS.filter(p=>p.team===activeTeamId); }
+
+function renderTeamScreen(){
+  const projs = teamProjectsForActiveTeam();
+  if(!projs.find(p=>p.id===activeProjectId)) activeProjectId = projs[0]?.id;
+  const p = project(activeProjectId);
+  if(!p){ return `<div class="empty-note">Tim ini belum memiliki proyek terdaftar.</div>`; }
+
+  const projectTabs = projs.map(pr=>`
+    <button class="chip-filter ${pr.id===activeProjectId?'sel':''}" data-proj="${pr.id}">${catChip(pr.cat)} ${pr.name}</button>
+  `).join('');
+
+  return `
+    <div class="filter-row" style="margin-bottom:18px;">${projectTabs}</div>
+
+    <div class="team-grid">
+      <!-- LEFT: narrative log -->
+      <div>
+        <div class="card panel">
+          <div class="panel-head">
+            <div class="panel-title">Update Progres Mingguan</div>
+          </div>
+          <div class="panel-desc">${p.name} · riwayat &amp; entri baru</div>
+
+          <div class="compose-toggle-wrap">
+            ${composeOpen ? renderComposeCard(p) : `<button class="save-btn" onclick="toggleCompose(true)">＋ Tambah Update Baru</button>`}
+          </div>
+
+          ${p.log.length ? p.log.map(entry => renderLogEntry(p, entry, true)).join('') : `<div class="empty-log">Belum ada update untuk proyek ini.</div>`}
+        </div>
+      </div>
+
+      <!-- RIGHT: checklist -->
+      <div>
+        <div class="card panel">
+          <div class="panel-head"><div class="panel-title">Checklist Deliverable</div></div>
+          <div class="panel-desc">Target: ${p.target}</div>
+          <div class="progress-head">
+            <div class="progress-num">${p.pct}%</div>
+            <div class="progress-bar-track"><div class="progress-bar-fill" style="width:${p.pct}%"></div></div>
+          </div>
+          ${p.checklist.map((block, phaseIdx) => `
+            <div class="phase-block">
+              <div class="phase-title">${block.phase}</div>
+              ${block.items.map((it, itemIdx) => checklistRowHTML(p.id, phaseIdx, itemIdx, it, false)).join('')}
+            </div>
+          `).join('')}
+          <div class="info-callout">ⓘ Menandai deliverable selesai akan meminta tanggal, nomor dokumen, dan (jika relevan) vendor &amp; nilai kontrak — tersimpan otomatis ke Excel pusat.</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderComposeCard(p){
+  const opts = [
+    {v:'ontrack', l:'On Track', c:'st-ontrack'},
+    {v:'behind', l:'Behind', c:'st-behind'},
+    {v:'alert', l:'Alert', c:'st-alert'},
+    {v:'done', l:'Selesai', c:'st-done'},
+  ];
+  return `
+    <div style="border:1px solid var(--line); border-radius:10px; padding:16px 16px 14px; margin-bottom:6px; background:#FBFCFD;">
+      <div class="panel-desc" style="margin-top:0;">Entri baru · ${CURRENT_PERIOD}</div>
+
+      <div class="field-label">Status proyek keseluruhan <span class="req">*</span></div>
+      <div class="status-picker" id="compose-status">
+        ${opts.map(o=>`<button class="status-opt ${o.c} ${o.v===p.status?'sel':''}" data-val="${o.v}" onclick="pickStatus(this)"><span class="sw" style="background:currentColor;"></span>${o.l}</button>`).join('')}
+      </div>
+
+      <div class="field-label">Progres minggu ini <span class="req">*</span></div>
+      <div class="editor">
+        <div class="editor-toolbar">
+          <button title="Bold"><b>B</b></button><button title="Italic"><i>I</i></button><button title="Underline"><u>U</u></button><button title="List">≣</button>
+        </div>
+        <ul class="bullet-list" id="compose-progres">
+          <li><span class="dash">—</span><div contenteditable="true" data-ph="Tulis progres..."></div></li>
+        </ul>
+        <button class="add-bullet" onclick="addBullet('compose-progres')">+ Tambah poin</button>
+      </div>
+
+      <div class="field-label">Rencana tindak lanjut</div>
+      <div class="editor">
+        <ul class="bullet-list" id="compose-rtl">
+          <li><span class="dash">—</span><div contenteditable="true" data-ph="Tulis rencana..."></div></li>
+        </ul>
+        <button class="add-bullet" onclick="addBullet('compose-rtl')">+ Tambah poin</button>
+      </div>
+
+      <div class="field-label">Lampiran</div>
+      <button class="attach-add">＋ Tambah file (PDF, DOCX, JPG)</button>
+
+      <div class="panel-footer">
+        <button class="ghost-btn" onclick="toggleCompose(false)">Batal</button>
+        <button class="save-btn" onclick="saveNewEntry('${p.id}')">Simpan sebagai Update Baru</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLogEntry(p, entry, editable){
+  if(editingLogEntryId === entry.id){
+    return `
+      <div class="log-entry">
+        <div class="log-head">
+          <span class="log-date">${entry.date} · ${entry.time}</span>
+          <span class="log-author">${teamName(p.team)}</span>
+        </div>
+        <div class="field-label" style="margin-top:6px;">Progres</div>
+        <div class="editor">
+          <ul class="bullet-list" id="edit-progres-${entry.id}">
+            ${entry.progres.map(t=>`<li><span class="dash">—</span><div contenteditable="true" data-ph="Tulis progres...">${t}</div></li>`).join('')}
+          </ul>
+          <button class="add-bullet" onclick="addBullet('edit-progres-${entry.id}')">+ Tambah poin</button>
+        </div>
+        <div class="field-label">Rencana tindak lanjut</div>
+        <div class="editor">
+          <ul class="bullet-list" id="edit-rtl-${entry.id}">
+            ${entry.rtl.map(t=>`<li><span class="dash">—</span><div contenteditable="true" data-ph="Tulis rencana...">${t}</div></li>`).join('')}
+          </ul>
+          <button class="add-bullet" onclick="addBullet('edit-rtl-${entry.id}')">+ Tambah poin</button>
+        </div>
+        <div class="panel-footer" style="margin-top:10px;">
+          <button class="ghost-btn" onclick="cancelEditEntry()">Batal</button>
+          <button class="save-btn" onclick="saveEditEntry('${p.id}','${entry.id}')">Simpan Perubahan</button>
+        </div>
+      </div>`;
+  }
+
+  return `
+    <div class="log-entry">
+      <div class="log-head">
+        <span class="log-date">${entry.date} · ${entry.time}</span>
+        <span class="log-author">${teamName(p.team)} · ${entry.period}</span>
+        ${entry.editedAt ? `<span class="log-edited">diedit ${entry.editedAt}</span>` : ''}
+        ${editable ? `<button class="log-edit-btn" onclick="startEditEntry('${entry.id}')">✎ Edit</button>` : ''}
+      </div>
+      <div class="log-sub-label">Progres</div>
+      <ul>${entry.progres.map(t=>`<li>${t}</li>`).join('')}</ul>
+      ${entry.rtl && entry.rtl.length ? `<div class="log-sub-label">Rencana Tindak Lanjut</div><ul>${entry.rtl.map(t=>`<li>${t}</li>`).join('')}</ul>` : ''}
+      ${entry.attach ? `
+      <div class="attach-row">
+        <div class="attach-icon">📎</div>
+        <div class="attach-meta"><div class="name">${entry.attach.name}</div><div class="size">${entry.attach.size}</div></div>
+      </div>` : ''}
+    </div>`;
+}
+
+function toggleCompose(open){ composeOpen = open; renderContent(); }
+function pickStatus(btn){
+  btn.parentElement.querySelectorAll('.status-opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function addBullet(listId){
+  const ul = document.getElementById(listId);
+  const li = document.createElement('li');
+  li.innerHTML = `<span class="dash">—</span><div contenteditable="true" data-ph="Tulis poin baru..."></div>`;
+  ul.appendChild(li);
+  li.querySelector('[contenteditable]').focus();
+}
+function collectBullets(listId){
+  return Array.from(document.querySelectorAll('#'+listId+' [contenteditable]'))
+    .map(d=>d.innerHTML.trim()).filter(t=>t.length>0);
+}
+function saveNewEntry(projId){
+  const p = project(projId);
+  const statusBtn = document.querySelector('#compose-status .status-opt.sel');
+  const status = statusBtn ? statusBtn.getAttribute('data-val') : p.status;
+  const progres = collectBullets('compose-progres');
+  const rtl = collectBullets('compose-rtl');
+  if(progres.length === 0){ alert('Isi minimal satu poin progres sebelum menyimpan.'); return; }
+  const now = new Date();
+  const entry = logEntry(CURRENT_PERIOD, formatDateID(now), formatTime(now), status, progres, rtl, null, null);
+  p.log.unshift(entry);
+  p.status = status;
+  composeOpen = false;
+  renderContent();
+}
+function startEditEntry(entryId){ editingLogEntryId = entryId; renderContent(); }
+function cancelEditEntry(){ editingLogEntryId = null; renderContent(); }
+function saveEditEntry(projId, entryId){
+  const p = project(projId);
+  const entry = p.log.find(e=>e.id===entryId);
+  const progres = collectBullets('edit-progres-'+entryId);
+  const rtl = collectBullets('edit-rtl-'+entryId);
+  if(progres.length === 0){ alert('Progres tidak boleh kosong.'); return; }
+  entry.progres = progres;
+  entry.rtl = rtl;
+  entry.editedAt = formatDateID(new Date())+', '+formatTime(new Date());
+  editingLogEntryId = null;
+  renderContent();
+}
+function formatDateID(d){
+  const bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  return d.getDate()+' '+bulan[d.getMonth()]+' '+d.getFullYear();
+}
+function formatTime(d){
+  return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
+
+/* ===================== CHECKLIST detail modal ===================== */
+function checklistRowHTML(projId, phaseIdx, itemIdx, it, readonly){
+  const detailBits = [];
+  if(it.docNumber) detailBits.push('No. '+esc(it.docNumber));
+  if(it.vendor) detailBits.push(esc(it.vendor));
+  if(it.contractValue) detailBits.push(esc(it.contractValue));
+  const detailLine = (it.done && detailBits.length) ? `<div class="deliv-detail"><span class="dic">📄</span>${detailBits.join(' <span class="sep">·</span> ')}</div>` : '';
+  const badgeHTML = it.done ? `<span class="badge b-green">Selesai</span>` : `<span class="badge ${(STATUS_META[it.status]||STATUS_META.manual).cls}">${(STATUS_META[it.status]||STATUS_META.manual).label}</span>`;
+  return `
+    <div class="deliv-row" onclick="openChecklistModal('${projId}', ${phaseIdx}, ${itemIdx}, ${readonly})">
+      <div class="deliv-check ${it.done?'done':''}">${it.done?'✓':''}</div>
+      <div class="deliv-main">
+        <div class="deliv-name">${it.name}</div>
+        <div class="deliv-date">${it.due}</div>
+        ${detailLine}
+      </div>
+      <div class="deliv-status">${badgeHTML}</div>
+    </div>`;
+}
+
+function openChecklistModal(projId, phaseIdx, itemIdx, readonly){
+  checklistModalCtx = {projId, phaseIdx, itemIdx, readonly};
+  const p = project(projId);
+  const it = p.checklist[phaseIdx].items[itemIdx];
+  const dis = readonly ? 'disabled' : '';
+
+  document.getElementById('checklist-modal-inner').innerHTML = `
+    <button class="modal-close" onclick="closeChecklistModal()">×</button>
+    <div class="modal-title-row"><h2 style="margin:0;">${it.done ? 'Detail' : 'Tandai Selesai'}: ${it.name}</h2></div>
+    <div class="modal-sub">${p.name}${readonly ? ' · tampilan supervisor (baca saja)' : ''}</div>
+
+    <div class="form-field">
+      <label>Tanggal Terbit / Disetujui <span class="opt">wajib</span></label>
+      <input type="date" class="form-input" id="cf-date" value="${it.docDate||''}" ${dis}>
+    </div>
+    <div class="form-field">
+      <label>Nomor Dokumen <span class="opt">opsional</span></label>
+      <input type="text" class="form-input" id="cf-number" placeholder="cth. 28/160/DMAP-GPPS-PBS/Srt/B" value="${esc(it.docNumber)}" ${dis}>
+    </div>
+    <div class="form-row2">
+      <div class="form-field">
+        <label>Nama Vendor / Pelaksana <span class="opt">jika ada</span></label>
+        <input type="text" class="form-input" id="cf-vendor" placeholder="cth. PT Prosys" value="${esc(it.vendor)}" ${dis}>
+      </div>
+      <div class="form-field">
+        <label>Nilai Kontrak <span class="opt">jika ada</span></label>
+        <input type="text" class="form-input" id="cf-value" placeholder="cth. Rp1.506.985.000" value="${esc(it.contractValue)}" ${dis}>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Catatan <span class="opt">opsional</span></label>
+      <textarea class="form-textarea" id="cf-notes" placeholder="Catatan tambahan..." ${dis}>${esc(it.notes)}</textarea>
+    </div>
+
+    <div class="modal-footer">
+      ${(!readonly && it.done) ? `<button class="btn-danger-text" onclick="unmarkChecklistItem()">Tandai Belum Selesai</button>` : ''}
+      <div style="margin-left:auto; display:flex; gap:8px;">
+        ${readonly ? `<button class="ghost-btn" onclick="closeChecklistModal()">Tutup</button>`
+          : `<button class="ghost-btn" onclick="closeChecklistModal()">Batal</button>
+             <button class="save-btn" onclick="saveChecklistItem()">${it.done ? 'Simpan Perubahan' : 'Tandai Selesai & Simpan'}</button>`}
+      </div>
+    </div>
+  `;
+  document.getElementById('checklist-modal').classList.add('open');
+}
+function closeChecklistModal(){
+  document.getElementById('checklist-modal').classList.remove('open');
+  checklistModalCtx = null;
+}
+function saveChecklistItem(){
+  const {projId, phaseIdx, itemIdx} = checklistModalCtx;
+  const p = project(projId);
+  const it = p.checklist[phaseIdx].items[itemIdx];
+  const dateVal = document.getElementById('cf-date').value;
+  if(!dateVal){ alert('Tanggal terbit/disetujui wajib diisi.'); return; }
+  it.docDate = dateVal;
+  it.docNumber = document.getElementById('cf-number').value.trim();
+  it.vendor = document.getElementById('cf-vendor').value.trim();
+  it.contractValue = document.getElementById('cf-value').value.trim();
+  it.notes = document.getElementById('cf-notes').value.trim();
+  it.done = true;
+  it.status = 'ontrack';
+  recomputePct(p);
+  closeChecklistModal();
+  renderContent();
+  refreshDrawerIfOpen();
+}
+function unmarkChecklistItem(){
+  const {projId, phaseIdx, itemIdx} = checklistModalCtx;
+  const p = project(projId);
+  const it = p.checklist[phaseIdx].items[itemIdx];
+  it.done = false;
+  recomputePct(p);
+  closeChecklistModal();
+  renderContent();
+  refreshDrawerIfOpen();
+}
+function recomputePct(p){
+  let total=0, done=0;
+  p.checklist.forEach(b=> b.items.forEach(it=>{ total++; if(it.done) done++; }));
+  if(total>0) p.pct = Math.round(done/total*100);
+}
+function refreshDrawerIfOpen(){
+  if(document.getElementById('drawer').classList.contains('open') && lastDrawerProjectId){
+    openDrawer(lastDrawerProjectId);
+  }
+}
+
+/* ===================== SUPERVISOR SCREEN ===================== */
+function renderSupervisorScreen(){
+  const total = PROJECTS.length;
+  const behindOrAlert = PROJECTS.filter(p=>p.status==='behind'||p.status==='alert').length;
+  const avgPct = Math.round(PROJECTS.reduce((s,p)=>s+p.pct,0)/total);
+  const notUpdated = PROJECTS.filter(p=> !(p.log[0] && p.log[0].period === CURRENT_PERIOD));
+
+  const filtered = PROJECTS.filter(p=> catFilter==='all' || p.cat===catFilter);
+  const cats = ['all','A','B','C','D'];
+
+  return `
+    <div class="kpi-row">
+      <div class="card kpi"><div class="label">Total Proyek</div><div class="value">${total}</div><div class="foot">di 5 grup / tim</div></div>
+      <div class="card kpi"><div class="label">Rata-rata Progres</div><div class="value">${avgPct}%</div><div class="foot">checklist deliverable</div></div>
+      <div class="card kpi ${behindOrAlert>0?'warn':''}"><div class="label">Behind / Alert</div><div class="value">${behindOrAlert}</div><div class="foot">butuh perhatian</div></div>
+      <div class="card kpi ${notUpdated.length>0?'warn':''}"><div class="label">Belum Update Minggu Ini</div><div class="value">${notUpdated.length}</div><div class="foot">dari ${total} proyek</div></div>
+    </div>
+
+    ${notUpdated.length>0 ? `
+    <div class="pending-banner">
+      <div class="ic">⚠</div>
+      <div>
+        <div class="t1">${notUpdated.length} proyek belum mengisi update untuk ${CURRENT_PERIOD}</div>
+        <div class="t2">Dulu Anda menghubungi tim satu per satu — sekarang cukup follow up daftar berikut:</div>
+        <div>
+          ${notUpdated.map(p=>`<span class="pending-chip">${teamName(p.team)} · ${p.name}</span>`).join('')}
+        </div>
+      </div>
+    </div>` : ''}
+
+    <div class="filter-row">
+      ${cats.map(c=>`<button class="chip-filter ${catFilter===c?'sel':''}" onclick="setCat('${c}')">${c==='all'?'Semua Kategori':'Kategori '+c+' — '+CAT_LABEL[c]}</button>`).join('')}
+    </div>
+
+    <div class="card" style="padding:6px 6px 4px;">
+      <table class="proj-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">Proyek</th>
+            <th>Target</th>
+            <th>Progres Checklist</th>
+            <th>Status</th>
+            <th>Update Terakhir</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${filtered.map(p=>{
+            const fresh = p.log[0] && p.log[0].period === CURRENT_PERIOD;
+            const lastLabel = p.log[0] ? (p.log[0].date+' · '+p.log[0].time) : 'Belum pernah';
+            return `
+            <tr onclick="openDrawer('${p.id}')">
+              <td>
+                <div class="proj-name-cell">
+                  ${catChip(p.cat)}
+                  <div>
+                    <div class="proj-name">${p.name}</div>
+                    <div class="proj-team">${teamName(p.team)}</div>
+                  </div>
+                </div>
+              </td>
+              <td style="font-size:12.5px;color:var(--ink-soft);">${p.target}</td>
+              <td>
+                <span class="mini-bar-track"><span class="mini-bar-fill" style="width:${p.pct}%"></span></span>
+                <span style="font-size:12px;font-weight:600;">${p.pct}%</span>
+              </td>
+              <td>${badge(p.status)}</td>
+              <td class="updated-cell ${fresh?'fresh':'stale'}">${fresh ? lastLabel : 'Belum diperbarui'}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+function setCat(c){ catFilter = c; renderContent(); }
+
+/* ===================== DRAWER ===================== */
+function openDrawer(id){
+  lastDrawerProjectId = id;
+  const p = project(id);
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('overlay');
+
+  const planPct = p.plan!=null ? Math.min(p.plan,100) : null;
+  const actPct = p.actual!=null ? Math.min(p.actual,100) : null;
+
+  drawer.innerHTML = `
+    <div class="drawer-head">
+      <button class="drawer-close" onclick="closeDrawer()">×</button>
+      <div class="drawer-cat">${catChip(p.cat)}<span style="font-size:11.5px;color:var(--ink-faint);">${CAT_LABEL[p.cat]} · ${teamName(p.team)}</span></div>
+      <div class="drawer-title">${p.name}</div>
+      <div class="drawer-sub">Target: ${p.target} &nbsp;·&nbsp; ${badge(p.status)}</div>
+    </div>
+    <div class="drawer-body">
+
+      ${planPct!=null ? `
+      <div class="drawer-section-title">Kurva Progres (Rencana vs Realisasi)</div>
+      <div class="timeline-bar-wrap">
+        <div class="timeline-labels"><span>Rencana ${p.plan}%</span><span>Realisasi ${p.actual}%</span></div>
+        <div class="timeline-track">
+          <div class="timeline-plan" style="width:${planPct}%;"></div>
+          <div class="timeline-actual" style="width:${actPct}%;"></div>
+        </div>
+        <div class="timeline-legend">
+          <span><i style="background:var(--blue-soft);border:1px solid var(--blue);"></i>Rencana</span>
+          <span><i style="background:var(--navy-800);"></i>Realisasi</span>
+        </div>
+      </div>` : ''}
+
+      <div class="drawer-section-title">Checklist Deliverable</div>
+      <div class="drawer-checklist">
+        ${p.checklist.map((block, phaseIdx)=>`
+          <div class="phase-block">
+            <div class="phase-title">${block.phase}</div>
+            ${block.items.map((it, itemIdx)=>checklistRowHTML(p.id, phaseIdx, itemIdx, it, true)).join('')}
+          </div>`).join('')}
+      </div>
+
+      <div class="drawer-section-title">Riwayat Update Mingguan</div>
+      ${p.log.length ? p.log.map(entry => renderLogEntry(p, entry, false)).join('') : `<div class="empty-log">Belum ada update untuk proyek ini.</div>`}
+    </div>
+  `;
+  drawer.classList.add('open');
+  overlay.classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  lastDrawerProjectId = null;
+}
+document.getElementById('overlay').onclick = closeDrawer;
+
+/* ===================== ROUTER ===================== */
+function renderContent(){
+  const el = document.getElementById('content');
+  el.innerHTML = currentScreen === 'team' ? renderTeamScreen() : renderSupervisorScreen();
+  el.querySelectorAll('[data-proj]').forEach(btn=>{
+    btn.onclick = ()=>{ activeProjectId = btn.getAttribute('data-proj'); composeOpen=false; editingLogEntryId=null; renderContent(); };
+  });
+  renderTopbar();
+  updateNavActive();
+}
+function updateNavActive(){
+  document.getElementById('nav-team').classList.toggle('active', currentScreen==='team');
+  document.getElementById('nav-dash').classList.toggle('active', currentScreen==='dash');
+}
+function goScreen(s){ currentScreen = s; renderContent(); }
+document.getElementById('nav-team').onclick = ()=>goScreen('team');
+document.getElementById('nav-dash').onclick = ()=>goScreen('dash');
+
+document.getElementById('role-team').onclick = ()=>{
+  role='team';
+  document.getElementById('role-team').classList.add('active');
+  document.getElementById('role-sup').classList.remove('active');
+  goScreen('team');
+};
+document.getElementById('role-sup').onclick = ()=>{
+  role='supervisor';
+  document.getElementById('role-sup').classList.add('active');
+  document.getElementById('role-team').classList.remove('active');
+  goScreen('dash');
+};
+
+document.getElementById('open-tech').onclick = ()=> document.getElementById('tech-modal').classList.add('open');
+document.getElementById('close-tech').onclick = ()=> document.getElementById('tech-modal').classList.remove('open');
+document.getElementById('tech-modal').onclick = (e)=>{ if(e.target.id==='tech-modal') e.currentTarget.classList.remove('open'); };
+document.getElementById('checklist-modal').onclick = (e)=>{ if(e.target.id==='checklist-modal') closeChecklistModal(); };
+
+/* ===================== INIT ===================== */
+renderContent();
+</script>
+</body>
+</html>

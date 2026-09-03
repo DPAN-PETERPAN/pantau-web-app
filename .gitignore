@@ -1,0 +1,10 @@
+.env.local
+node_modules/
+.next/
+out/
+build/
+.DS_Store
+~$*.xlsx
+*.pem
+npm-debug.log*
+next-env.d.ts
