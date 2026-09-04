@@ -4,6 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "PANTAU - Portal Antar Unit untuk Monitoring Terpadu",
   description: "Progress monitoring proyek DPAN — Bank Indonesia",
+  icons: { icon: "/logo-icon.svg" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

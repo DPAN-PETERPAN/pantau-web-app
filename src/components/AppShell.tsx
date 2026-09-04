@@ -32,7 +32,7 @@ export function AppShell({
     <div className="app">
       <aside className="sidebar">
         <div className="brand">
-          <div className="brand-mark">BI</div>
+          <img src="/logo-icon.svg" alt="PANTAU" className="brand-mark" />
           <div className="brand-text">
             <div className="l1">PANTAU</div>
             <div className="l2">Portal Antar Unit untuk Monitoring Terpadu</div>

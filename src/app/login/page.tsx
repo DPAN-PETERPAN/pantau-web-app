@@ -32,13 +32,7 @@ export default function LoginPage() {
     <div className="login-wrap">
       <div className="login-card">
         <div className="login-brand">
-          <div className="brand-mark" style={{ background: "var(--navy-900)" }}>
-            BI
-          </div>
-          <div>
-            <div className="login-title">PANTAU</div>
-            <div style={{ fontSize: 11.5, color: "var(--ink-faint)" }}>DPAN Progress Monitoring</div>
-          </div>
+          <img src="/logo.svg" alt="PANTAU — Portal Antar Unit untuk Monitoring Terpadu" className="login-logo" />
         </div>
         <div className="login-sub">Masukkan kode akses yang diberikan oleh admin.</div>
         <form onSubmit={submit}>
