@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { currentPeriodLabel } from "@/lib/period";
+import { currentPeriodLabel, isInCurrentPeriod } from "@/lib/period";
 import { useCategories } from "@/lib/useCategories";
 import type { ProjectSummary } from "@/lib/projects-query";
 import { AppShell } from "./AppShell";
@@ -33,8 +33,8 @@ export function DashboardClient() {
   const total = projects.length;
   const avgPct = openProjects.length > 0 ? Math.round(openProjects.reduce((s, p) => s + (p.actual_pct ?? 0), 0) / openProjects.length) : 0;
   const behindOrAlert = openProjects.filter((p) => p.status === "behind" || p.status === "alert").length;
-  const updated = useMemo(() => openProjects.filter((p) => p.last_log_period === period), [openProjects, period]);
-  const notUpdated = useMemo(() => openProjects.filter((p) => p.last_log_period !== period), [openProjects, period]);
+  const updated = useMemo(() => openProjects.filter((p) => isInCurrentPeriod(p.last_log_at)), [openProjects]);
+  const notUpdated = useMemo(() => openProjects.filter((p) => !isInCurrentPeriod(p.last_log_at)), [openProjects]);
 
   const teamStats = useMemo(() => {
     const map = new Map<string, { team_id: string; team_name: string; total: number; notUpdated: number }>();
@@ -42,18 +42,18 @@ export function DashboardClient() {
       if (!map.has(p.team_id)) map.set(p.team_id, { team_id: p.team_id, team_name: p.team_name, total: 0, notUpdated: 0 });
       const s = map.get(p.team_id)!;
       s.total++;
-      if (p.last_log_period !== period) s.notUpdated++;
+      if (!isInCurrentPeriod(p.last_log_at)) s.notUpdated++;
     }
     return [...map.values()].sort((a, b) => b.notUpdated - a.notUpdated || a.team_name.localeCompare(b.team_name));
-  }, [openProjects, period]);
+  }, [openProjects]);
 
   const filtered = (showClosed ? closedProjects : openProjects)
     .filter((p) => catFilter === "all" || p.category === catFilter)
     .filter((p) => teamFilter === "all" || p.team_id === teamFilter)
     .filter((p) => {
       if (showClosed) return true;
-      if (updateFilter === "updated") return p.last_log_period === period;
-      if (updateFilter === "notupdated") return p.last_log_period !== period;
+      if (updateFilter === "updated") return isInCurrentPeriod(p.last_log_at);
+      if (updateFilter === "notupdated") return !isInCurrentPeriod(p.last_log_at);
       return true;
     });
 
@@ -70,7 +70,7 @@ export function DashboardClient() {
       role="admin"
       title="Dashboard Admin"
       subtitle="Pantauan progres seluruh grup — GPAN2"
-      topbarRight={<div className="select">📅 {period}</div>}
+      topbarRight={<div className="select">📅 Periode Pelaporan: {period}</div>}
     >
       <div className="kpi-row">
         <div className="card kpi">
@@ -178,7 +178,7 @@ export function DashboardClient() {
           </thead>
           <tbody>
             {filtered.map((p) => {
-              const fresh = p.last_log_period === period;
+              const fresh = isInCurrentPeriod(p.last_log_at);
               const lastLabel = p.last_log_at ? new Date(p.last_log_at).toLocaleString("id-ID") : "Belum pernah";
               return (
                 <tr key={p.id} onClick={() => setDrawerId(p.id)}>

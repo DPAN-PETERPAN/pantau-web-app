@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useMemo } from "react";
 import type { ChecklistItem, ProjectDetail } from "@/lib/types";
-import { currentPeriodLabel } from "@/lib/period";
+import { currentPeriodLabel, isInCurrentPeriod } from "@/lib/period";
 import { useCategories } from "@/lib/useCategories";
 import { AppShell } from "./AppShell";
 import { CatChip } from "./Badge";
@@ -17,6 +17,7 @@ interface ProjectTab {
   category: string;
   actual_pct: number | null;
   last_log_period: string | null;
+  last_log_at: string | null;
   closed_at: string | null;
 }
 
@@ -57,17 +58,17 @@ export function UpdateClient({ teamId, teamName }: { teamId: string; teamName: s
   const openProjects = useMemo(() => projects.filter((p) => !p.closed_at), [projects]);
   const closedProjects = useMemo(() => projects.filter((p) => p.closed_at), [projects]);
 
-  const updatedProjects = useMemo(() => openProjects.filter((p) => p.last_log_period === period), [openProjects, period]);
-  const notUpdatedProjects = useMemo(() => openProjects.filter((p) => p.last_log_period !== period), [openProjects, period]);
+  const updatedProjects = useMemo(() => openProjects.filter((p) => isInCurrentPeriod(p.last_log_at)), [openProjects]);
+  const notUpdatedProjects = useMemo(() => openProjects.filter((p) => !isInCurrentPeriod(p.last_log_at)), [openProjects]);
 
   // Belum-update projects first, so the team works through what's left instead of starting over each time.
   const orderedOpen = useMemo(
-    () => [...openProjects].sort((a, b) => Number(a.last_log_period === period) - Number(b.last_log_period === period)),
-    [openProjects, period]
+    () => [...openProjects].sort((a, b) => Number(isInCurrentPeriod(a.last_log_at)) - Number(isInCurrentPeriod(b.last_log_at))),
+    [openProjects]
   );
   const visibleProjects = orderedOpen.filter((p) => {
-    if (pickFilter === "updated") return p.last_log_period === period;
-    if (pickFilter === "notupdated") return p.last_log_period !== period;
+    if (pickFilter === "updated") return isInCurrentPeriod(p.last_log_at);
+    if (pickFilter === "notupdated") return !isInCurrentPeriod(p.last_log_at);
     return true;
   });
 
@@ -120,6 +121,7 @@ export function UpdateClient({ teamId, teamName }: { teamId: string; teamName: s
     if (!res.ok) return data.error ?? "Gagal menyimpan.";
     setComposeOpen(false);
     if (activeId) loadDetail(activeId);
+    reloadProjects();
   }
 
   async function saveEditEntry(logId: string, payload: { progres: string[]; rencana: string[]; link_url: string }) {
@@ -172,7 +174,7 @@ export function UpdateClient({ teamId, teamName }: { teamId: string; teamName: s
       teamName={teamName}
       title="Update Mingguan"
       subtitle="Isi progres & checklist deliverable proyek Anda"
-      topbarRight={<div className="select">📅 {period}</div>}
+      topbarRight={<div className="select">📅 Periode Pelaporan: {period}</div>}
     >
       {error && <div className="form-error">{error}</div>}
 
@@ -214,7 +216,7 @@ export function UpdateClient({ teamId, teamName }: { teamId: string; teamName: s
             key={p.id}
             project={p}
             selected={p.id === activeId}
-            updated={p.last_log_period === period}
+            updated={isInCurrentPeriod(p.last_log_at)}
             category={byCode[p.category]}
             onClick={() => {
               setActiveId(p.id);
@@ -236,7 +238,7 @@ export function UpdateClient({ teamId, teamName }: { teamId: string; teamName: s
                 key={p.id}
                 project={p}
                 selected={p.id === activeId}
-                updated={p.last_log_period === period}
+                updated={isInCurrentPeriod(p.last_log_at)}
                 category={byCode[p.category]}
                 closed
                 onClick={() => {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { WeeklyLog } from "@/lib/types";
-import { formatDateID, formatTimeID } from "@/lib/period";
+import { currentPeriodLabel, formatDateID, formatTimeID } from "@/lib/period";
 import { BulletEditor } from "./BulletEditor";
 
 export function LogList({
@@ -63,7 +63,7 @@ function ViewEntry({
           {formatDateID(submitted)} · {formatTimeID(submitted)}
         </span>
         <span className="log-author">
-          {teamName} · {entry.period_label}
+          {teamName} · Periode Pelaporan: {currentPeriodLabel(submitted)}
         </span>
         {entry.edited_at && <span className="log-edited">diedit {formatDateID(new Date(entry.edited_at))}</span>}
         {editable && (

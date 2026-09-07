@@ -44,7 +44,7 @@ export function ComposeCard({
   return (
     <div className="compose-card">
       <div className="panel-desc" style={{ marginTop: 0 }}>
-        Entri baru · {periodLabel}
+        Entri baru · Periode Pelaporan: {periodLabel}
       </div>
       {error && <div className="form-error">{error}</div>}
 
