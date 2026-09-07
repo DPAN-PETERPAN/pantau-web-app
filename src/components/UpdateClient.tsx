@@ -72,6 +72,16 @@ export function UpdateClient({ teamId, teamName }: { teamId: string; teamName: s
     return true;
   });
 
+  // The detail panel below should only reflect a project card actually on screen right now —
+  // otherwise switching/filter-narrowing the picker (e.g. clicking "Sudah Update" down to zero
+  // results) left the previously-selected project's detail showing underneath an empty grid.
+  const displayedIds = useMemo(() => {
+    const ids = new Set(visibleProjects.map((p) => p.id));
+    if (showClosed) closedProjects.forEach((p) => ids.add(p.id));
+    return ids;
+  }, [visibleProjects, showClosed, closedProjects]);
+  const activeVisible = activeId != null && displayedIds.has(activeId);
+
   function togglePickFilter(f: PickFilter) {
     setPickFilter((cur) => (cur === f ? "all" : f));
   }
@@ -251,7 +261,9 @@ export function UpdateClient({ teamId, teamName }: { teamId: string; teamName: s
         </>
       )}
 
-      {loadingDetail || !detail ? (
+      {!activeVisible ? (
+        <div className="empty-note">Pilih salah satu proyek di atas untuk melihat detail update.</div>
+      ) : loadingDetail || !detail ? (
         <div className="empty-note">Memuat...</div>
       ) : (
         <div className="team-grid">
